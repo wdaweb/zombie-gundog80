@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		#game{
+			width:70vw;
+			height:80vh;
+			background-image:url(足球場.jpg);
+			/* cursor:help; */
+			cursor:url(./mouse.png) 0 40 ,auto;
+			overflow:hidden;
+			position:relative;
+		}
+		#serveImg{
+			position:absolute;
+			width:10%;
+			height:55%;
+			top:47%;
+			left:47%;
+			/* background-image: url("./family05_p02s01.png");
+			background-size: contain;
+			background-repeat: no-repeat;
+			border-width: 0; */
+		}
+		.player{
+			position:absolute;
+			width:120px;
+			height:120px;
+			z-index: 1;
+			/* background-image:url("./player.png");
+			background-size:contain;
+			background-repeat:no-repeat; */
+			}
+		.bludger{
+			position: absolute;
+			height:50px;
+			width:50px;
+			left:calc(50% - 25px);
+			top:calc(60% - 25px);
+		}
+	</style>
+</head>
+<body>
+	<div id=game>
+
+		<img id=serveImg src="./family05_p02s01.png" width=100% height=100%></img>
+
+
+
+	</div>
+	<input type="button" value=開始 id=start>
+	<input type="button" value=測試鈕 id=tryy>
+	
+
+
+
+
+
+
+	<script src="jquery-3.4.1.min.js")></script>
+	<script>
+			let rand = function(n) {
+				return Math.floor(Math.random()*n)
+			}
+			let mouseX=0;
+			let mouseY=0;
+			$("#game")[0].onmousemove = function (event){
+				mouseX=event.pageX;
+				mouseY=event.pageY;
+			}
+			let bludgerID=0
+		$(function(){
+
+			//搏格球行為
+			// $("#tryy").on("click",function(event){
+				//測試用球員函式
+				// let playerFree = function (i) {
+				// 	$(".player").eq(i).animate({
+				// 		left:rand(80) + "%",
+				// 		top: rand(80) +"%"
+				// 	},2000,function(){playerFree(i)})
+				// }
+
+
+			
+			}) //搏格球行為 end
+
+
+		$(function(){
+			
+			$("#tryy").on("click",function(event){
+				//測試用球員函式
+				// let playerFree = function (i) {
+				// 	$(".player").eq(i).animate({
+				// 		left:rand(80) + "%",
+				// 		top: rand(80) +"%"
+				// 	},2000,function(){playerFree(i)})
+				// }
+				let runBludger =function () {
+
+					$("#game").append(`<img src='./博格.png' class=bludger id=bID${bludgerID} ></img>`);
+					bludgerStep1(`#bID${bludgerID}`);
+					bludgerID++;
+				}
+				
+				let bludgerStep1 = function (id) {
+
+					let temp=rand(4);
+					let target={
+						left:rand(80) + "%",
+						top:rand(80) + "%"
+						}
+					$(`${id}`).animate(target,1000,function(){
+						bludgerStep2(id);
+
+						$(".player").eq(temp).attr("src","揮棒.png")
+
+						setTimeout(function(){
+							$(".player").eq(temp).attr("src","player.png")
+						}
+						,100)
+						
+						})
+					// $(".bludger").last().animate(target,1000,function(){bludgerStep2()})
+					$(".player").eq(temp).stop().animate(target,1000,function(){playerFree(temp)})
+				}
+				let bludgerStep2 = function (id) {
+					let target={
+						left:mouseX,
+						top:mouseY
+						}
+
+						$(`${id}`).animate(target,300,function(){bludgerStep3(id)})
+				}
+				let bludgerStep3 = function (id) {
+					$(`${id}`).attr("src","./fireball.png");
+					$(`${id}`).fadeOut(100);
+					
+
+				}
+				runBludger()
+			
+			}) //tryyOnClick end
+
+
+		// $(function(){
+			
+		// 	$("#tryy").on("click",function(event){
+		// 		let playerFree = function (i) {
+		// 			$(".player").eq(i).animate({
+		// 				left:rand(80) + "%",
+		// 				top: rand(80) +"%"
+		// 			},2000,function(){playerFree(i)})
+		// 		}
+		// 		let creatBludger =function () {
+		// 			$("#game").append("<img src='./博格.png' class=bludger></img>")
+		// 		}
+				
+		// 		let bludgerStep1 = function () {
+		// 			let temp=rand(4);
+		// 			let target={
+		// 				left:rand(80) + "%",
+		// 				top:rand(80) + "%"
+		// 				}
+
+		// 				console.log("step1")
+		// 				console.log(target)
+		// 			$(".bludger").last().animate(target,1000,function(){
+		// 				bludgerStep2();
+
+		// 				$(".player").eq(temp).attr("src","揮棒.png")
+
+		// 				setTimeout(function(){
+		// 					$(".player").eq(temp).attr("src","player.png")
+		// 				}
+		// 				,100)
+						
+		// 				})
+		// 			// $(".bludger").last().animate(target,1000,function(){bludgerStep2()})
+		// 			$(".player").eq(temp).stop().animate(target,1000,function(){playerFree(temp)})
+		// 		}
+		// 		let bludgerStep2 = function () {
+		// 			let target={
+		// 				left:mouseX,
+		// 				top:mouseY
+		// 				}
+		// 				console.log(target);
+		// 				$(".bludger").last().animate(target,300,function(){bludgerStep3()})
+		// 		}
+		// 		let bludgerStep3 = function () {
+		// 			$(".bludger").last().attr("src","./fireball.png");
+		// 			$(".bludger").last().fadeOut(100);
+					
+
+		// 		}
+		// 		creatBludger();
+		// 		bludgerStep1();
+
+			
+		// 	}) //tryyOnClick end
+
+
+
+			$("#start").on("click",function(event){
+				mouseX=event.pageX;
+				mouseY=event.pageY;
+				// gameStart用到的function
+				let lockButton =function() {
+						$("#button").attr("disabled",true)
+						console.log("hi")
+						setTimeout(function(){
+						$("#button").attr("disabled",false)
+						},500)
+				}
+				let creatPlayer = function () {
+					$("#game").append("<img src=player.png class=player></img>")
+					$(".player").last().css({
+						left:rand(80) + "%",
+						top: rand(80) +"%"
+					})
+				}
+				let playerFree = function (i) {
+					$(".player").eq(i).animate({
+						left:rand(80) + "%",
+						top: rand(80) +"%"
+					},2000,function(){playerFree(i)})
+				}
+
+				
+				// gameStart主內容
+				let gameStart = function () {
+				lockButton();
+				for(let i=0;i<4;i++){
+					creatPlayer();
+					playerFree(i);
+				}
+					// creatBludger();
+				}		//gameStart函式結尾
+				gameStart();
+			})	//startOnClick end
+	
+
+	})	//loadHtmlEvent end
+
+	</script>
+</body>
+</html>
