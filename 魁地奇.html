@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +7,15 @@
 	<title>Document</title>
 	<style>
 		#game{
-			width:70vw;
+			width:90vh;
 			height:80vh;
 			background-image:url(足球場.jpg);
+			background-position: center;
 			/* cursor:help; */
 			cursor:url(./mouse.png) 0 40 ,auto;
 			overflow:hidden;
 			position:relative;
+			text-align: center;
 		}
 		#serveImg{
 			position:absolute;
@@ -21,6 +23,7 @@
 			height:55%;
 			top:47%;
 			left:47%;
+			user-select:none;
 			/* background-image: url("./family05_p02s01.png");
 			background-size: contain;
 			background-repeat: no-repeat;
@@ -30,32 +33,205 @@
 			position:absolute;
 			width:120px;
 			height:120px;
-			z-index: 1;
+			z-index: 2;
+			user-select:none;
 			/* background-image:url("./player.png");
 			background-size:contain;
 			background-repeat:no-repeat; */
 			}
 		.bludger{
+			user-select:none;
 			position: absolute;
 			height:50px;
 			width:50px;
 			left:calc(50% - 25px);
 			top:calc(60% - 25px);
 		}
+		.GS{
+			user-select:none;
+			position: absolute;
+			height:75px;
+			width:75px;
+			left:calc(50% - 25px);
+			top:calc(60% - 25px);
+			transform-origin: 95% 115%;
+			animation-name: circle ;
+			animation-duration: 1.5s;
+			animation-iteration-count: infinite;
+			z-index: 1;
+
+		}
+		@keyframes circle {
+			0%{
+				transform:rotate(0);
+			}
+			60%{
+				height:110px;
+				width:110px
+			}
+			100%{
+				transform:rotate(360deg);
+
+			}
+		}
+		
+		#score{
+			user-select:none;
+			display:inline-block;
+			font-size:6vh;
+			margin:4% auto;
+			font-family: "微軟正黑體";
+			/* width:90%; */
+		}
+		#score td{
+			width:10vh;
+		}
+		#score td:nth-child(3){
+			/* max-width:.3vh; */
+			width:.3vh;
+			line-height: .3em;
+		}
+		.change{
+			animation: flash 1 2s ;
+
+		}
+		@keyframes flash {
+			0%{opacity:1}
+			100%{opacity:0}
+			
+		}
+		.red{
+			color:rgba(255,0,0,.7);
+		}
+		.blue{
+			color:rgba(0,255,255,.75);
+			
+		}
+		.time{
+			color:greenyellow;
+		}
+		.end{
+			width:50%;
+			height:16%;
+			/* background-color: grey; */
+			position: absolute;
+			left:calc(50% - 25%);
+			top:40%;
+			font-size:12vh;
+			font-family: Verdana;
+			color:blue;
+			display:none;
+		}
+
+		.optionArea{
+			position: relative;
+			display: inline-block;
+    		width: 20vh;
+    		height: 80vh;
+    		vertical-align: top;
+    		text-align: center;
+		}
+		.GS2{
+			width:150px;
+			height:150px;
+			transform-origin: 80% 80%;
+			animation-name: circle2 ;
+			animation-duration: 8s;
+			animation-iteration-count: infinite;
+			z-index: 1;
+			position: relative;
+			right:10%
+		}
+		@keyframes circle2 {
+			0%{
+				width:150px;
+				height:150px;
+				transform:rotate(0);
+			}
+			15%{
+				width:120px;
+				height:120px;
+			}
+			30%{
+				width:150px;
+				height:150px;
+				transform:rotate(360deg);
+
+			}
+			100%{
+				width:150px;
+				height:150px;
+				transform:rotate(360deg);
+				}
+		}
+		.getGSTime{
+			position: absolute;
+			top:37vh;
+			right:20%;
+			font-size: 3em;
+		}
+		.histior{
+			position: absolute;
+			font-size: 2.5em;
+			border-style:solid;
+			/* top0:50vh; */
+			text-align: center;
+			bottom: 10vh;
+		}
 	</style>
 </head>
 <body>
-	<div id=game>
+	<div style="width:100vw;text-align:center;">
+		<div id=game style="display:inline-block;vertical-align:top ;">
+	
+			<table id=score>
+				<tr>
+					<td class=time colspan="5">
+							20s
+					</td>
+				</tr>
+				<tr>
+					<td class="red change"></td>
+					<td class="red score">999</td>
+					<td class="" style="color:green">:</td>
+					<td class="blue score">999</td>
+					<td class="blue change"></td>
+				</tr>
+			</table>
+			<img id=serveImg src="./family05_p02s01.png" width=100% height=100%></img>
+			<div class=end>WIN!</div>
+	
+	
+		</div>
 
-		<img id=serveImg src="./family05_p02s01.png" width=100% height=100%></img>
+		<div  class=optionArea>
+			<div style='display:inline-block;text-align: center; width:10vw;height:6vw;font-size: 4em;background-color: gray;
+			vertical-align:top ;margin-top: 15vh;'>
+				start
+			</div>
+			<div>
+				<img  class=GS2 src="./金探子.png" alt="">
+			</div>
+			<div class=getGSTime>
+				未補獲
+			</div>
+			<div class=histior>
+				名人堂
+				<hr>
+				最快補獲
+				<br>
+				<span class=Name>Name</span>
+				<br>
+				<span class=Score>Score</span>
+
+			</div>
 
 
-
+		</div>
 	</div>
 	<input type="button" value=開始 id=start>
-	<input type="button" value=測試鈕 id=tryy>
+	<input type="button" value=測試鈕 id=tryy >
 	
-
 
 
 
@@ -73,148 +249,54 @@
 				mouseY=event.pageY;
 			}
 			let bludgerID=0
-		$(function(){
-
-			//搏格球行為
-			// $("#tryy").on("click",function(event){
-				//測試用球員函式
-				// let playerFree = function (i) {
-				// 	$(".player").eq(i).animate({
-				// 		left:rand(80) + "%",
-				// 		top: rand(80) +"%"
-				// 	},2000,function(){playerFree(i)})
-				// }
-
-
-			
-			}) //搏格球行為 end
-
 
 		$(function(){
+			alert( "「飄盪於虛空中的靈呀，球員們期待勝利的心將您招來。您是否願意幫助他們贏得比賽呢?\n 您需要在躲避對手搏格的同手想辦法找到出沒在場上的金探子，\n 當然，如果您技巧高超，也可試著擊落向您飛來的搏格球\n 如果您準備好了，就按下start開始吧~")
 			
 			$("#tryy").on("click",function(event){
-				//測試用球員函式
-				// let playerFree = function (i) {
-				// 	$(".player").eq(i).animate({
-				// 		left:rand(80) + "%",
-				// 		top: rand(80) +"%"
-				// 	},2000,function(){playerFree(i)})
-				// }
-				let runBludger =function () {
 
-					$("#game").append(`<img src='./博格.png' class=bludger id=bID${bludgerID} ></img>`);
-					bludgerStep1(`#bID${bludgerID}`);
-					bludgerID++;
-				}
-				
-				let bludgerStep1 = function (id) {
 
-					let temp=rand(4);
-					let target={
-						left:rand(80) + "%",
-						top:rand(80) + "%"
-						}
-					$(`${id}`).animate(target,1000,function(){
-						bludgerStep2(id);
 
-						$(".player").eq(temp).attr("src","揮棒.png")
 
-						setTimeout(function(){
-							$(".player").eq(temp).attr("src","player.png")
-						}
-						,100)
-						
-						})
-					// $(".bludger").last().animate(target,1000,function(){bludgerStep2()})
-					$(".player").eq(temp).stop().animate(target,1000,function(){playerFree(temp)})
-				}
-				let bludgerStep2 = function (id) {
-					let target={
-						left:mouseX,
-						top:mouseY
-						}
 
-						$(`${id}`).animate(target,300,function(){bludgerStep3(id)})
-				}
-				let bludgerStep3 = function (id) {
-					$(`${id}`).attr("src","./fireball.png");
-					$(`${id}`).fadeOut(100);
-					
-
-				}
-				runBludger()
-			
 			}) //tryyOnClick end
 
 
-		// $(function(){
-			
-		// 	$("#tryy").on("click",function(event){
-		// 		let playerFree = function (i) {
-		// 			$(".player").eq(i).animate({
-		// 				left:rand(80) + "%",
-		// 				top: rand(80) +"%"
-		// 			},2000,function(){playerFree(i)})
-		// 		}
-		// 		let creatBludger =function () {
-		// 			$("#game").append("<img src='./博格.png' class=bludger></img>")
-		// 		}
-				
-		// 		let bludgerStep1 = function () {
-		// 			let temp=rand(4);
-		// 			let target={
-		// 				left:rand(80) + "%",
-		// 				top:rand(80) + "%"
-		// 				}
 
-		// 				console.log("step1")
-		// 				console.log(target)
-		// 			$(".bludger").last().animate(target,1000,function(){
-		// 				bludgerStep2();
-
-		// 				$(".player").eq(temp).attr("src","揮棒.png")
-
-		// 				setTimeout(function(){
-		// 					$(".player").eq(temp).attr("src","player.png")
-		// 				}
-		// 				,100)
-						
-		// 				})
-		// 			// $(".bludger").last().animate(target,1000,function(){bludgerStep2()})
-		// 			$(".player").eq(temp).stop().animate(target,1000,function(){playerFree(temp)})
-		// 		}
-		// 		let bludgerStep2 = function () {
-		// 			let target={
-		// 				left:mouseX,
-		// 				top:mouseY
-		// 				}
-		// 				console.log(target);
-		// 				$(".bludger").last().animate(target,300,function(){bludgerStep3()})
-		// 		}
-		// 		let bludgerStep3 = function () {
-		// 			$(".bludger").last().attr("src","./fireball.png");
-		// 			$(".bludger").last().fadeOut(100);
-					
-
-		// 		}
-		// 		creatBludger();
-		// 		bludgerStep1();
-
-			
-		// 	}) //tryyOnClick end
-
-
+// ---
+// ---
 
 			$("#start").on("click",function(event){
+				console.log("#startOnClick");
 				mouseX=event.pageX;
 				mouseY=event.pageY;
-				// gameStart用到的function
+				let redTeam=$('.red')
+				let blueTeam=$('.blue')
+			// gameStart用到的function
+				let addScore=function ( a , b) {
+					//分數操作用
+					b.filter('.change').html(`+` + `${a}`)
+					let temp=parseInt (b.filter('.score').html())
+					b.filter('.score').html(temp+a)
+					setTimeout(()=>{
+						b.filter('.change').html('')
+					},400)
+				}
+				let setScore =function(){
+					redTeam.filter('.change').html('')
+					blueTeam.filter('.change').html('')
+					redTeam.filter('.score').html('64')
+					blueTeam.filter('.score').html('25')
+					$('.time').html('20')
+				}
 				let lockButton =function() {
-						$("#button").attr("disabled",true)
-						console.log("hi")
-						setTimeout(function(){
-						$("#button").attr("disabled",false)
-						},500)
+					//鎖定開始鈕
+					$("#start").attr("disabled",true)
+					console.log("按鈕鎖定")
+					setTimeout(function(){
+					$("#start").attr("disabled",false)
+					console.log("按鈕解除")
+					},1000)
 				}
 				let creatPlayer = function () {
 					$("#game").append("<img src=player.png class=player></img>")
@@ -229,17 +311,154 @@
 						top: rand(80) +"%"
 					},2000,function(){playerFree(i)})
 				}
+				// burdger操作函式
+				let runBludger=function(){
+					let creatBludger =function () {
+						$("#game").append(`<img src='./博格.png' class=bludger id=bID${bludgerID} ></img>`).attr("disabled",true);
+						setTimeout(function(){
+							$(`#bID${bludgerID}`).attr("disabled",false);
+						},300);
+						bludgerStep1(`#bID${bludgerID}`);
+						bludgerID++;
+					}
+					let bludgerStep1 = function (id) {
+						let temp=rand(4);
+						let target={
+							left:rand(80) + "%",
+							top:rand(80) + "%"
+							}
+						$(`${id}`).animate(target,1000,function(){
+							bludgerStep2(id);
+						
+							$(".player").eq(temp).attr("src","揮棒.png")
+						
+							setTimeout(function(){
+								$(".player").eq(temp).attr("src","player.png")
+							}
+							,100)
+							});
+						$(".player").eq(temp).stop().animate(target,1000,function(){playerFree(temp)});
+					}
+					let bludgerStep2 = function (id) {
+					let target={
+						left:mouseX -100,
+						top:mouseY - 75,
+						}
+						$(`${id}`).animate(target,400,function(){bludgerStep3(id,target)});
+					}
+					let bludgerStep3 = function (id,target) {
+						$(`${id}`).css("width",150).css("height","150").attr("src","./fireball.png");
+						$(`${id}`).fadeOut(100);
+						if((target.left - mouseX)<-80 && (target.left - mouseX)>-120 && (target.top - mouseY)>-95 && (target.top - mouseY)<-55){
+							addScore(2,redTeam)
+						}
+					}
+					
+					creatBludger();
+					bludgerStep1();
+				}
+
+				//金探子用函式 
+				let runGS =function () {
+					
+					let creatGS=function(){
+						$("#game").append(`<img src='./金探子.png' class=GS id=GS ></img>`);
+					}
+					let times=0
+					let GS_step1 = function () {
+						let GS_Event=rand(10);
+						let target={
+							left:rand(90) + "%",
+							top:rand(80) + "%"
+						}
+						$("#GS").animate(target,2000,function(){
+							console.log(times)
+							if(times<3){
+								GS_step1();
+								times++;
+							}else if(GS_Event<1){
+								// 被攔
+								GS_step1();
+							}else if(GS_Event<2){
+								//原地排迴
+								setTimeout(GS_step1(),1000);
+							}else {
+								GS_step1();
+							}
+						});
+					}
+					setTimeout(function(){
+						creatGS();
+						GS_step1();
+					},rand(5)*1000+4000);
+				}
+				// ---
+				// ---				
+				// gameStart主內容
 
 				
-				// gameStart主內容
 				let gameStart = function () {
-				lockButton();
-				for(let i=0;i<4;i++){
-					creatPlayer();
-					playerFree(i);
-				}
-					// creatBludger();
-				}		//gameStart函式結尾
+					//流程用函式
+					let endGame = function () {
+						clearInterval(timing);
+						clearInterval(bludgerSta);
+						$('.player').stop().remove();
+						$('.GS').stop().remove();
+						console.log(redTeam.filter('.score').text())
+						console.log(blueTeam.filter('.score').text())
+						if(parseInt(redTeam.filter('.score').text() ) < parseInt(blueTeam.filter('.score').text())){
+							$('.end').html("WIN !").show()
+						}else{
+							$('.end').html("LOSE").show()
+						}
+						setTimeout(() => {
+							if(parseInt($('.getGSTime').text())<20){
+								//若破記錄，20需重設
+								// console.log("hi");
+								let retVal = prompt("了不起，這場精采的比賽將被人們傳頌 \n 尊敬的巫師，可願在此留下您的大名  ", "your name here");
+							   alert(`尊敬的 ${retVal} , 您的名字將被魁地奇所銘記 `);
+							   $('.histior .Name').text(retVal);
+							   console.log($('.getGSTime').html())
+							   $('.histior .Score').text($('.getGSTime').html());
+	
+							}
+						},300);
+					}
+					//初始化
+					lockButton();//完成後替換
+					setScore();
+					$('.getGSTime').html('未補獲')
+					$('.end').html("WIN !").hide()
+					let timing = setInterval(() => {
+						let temp=$('#score').find('.time').text()
+						temp = parseInt (temp)
+						$('#score').find('.time').text(temp - 1)
+						if(temp==1){
+							endGame();
+						}
+					}, 1000);
+					timing
+					for(let i=0;i<4;i++){ //產生球員並運作
+						creatPlayer();
+						playerFree(i);				
+					}
+					runGS(); //運作金探子
+					let bludgerSta =setInterval(runBludger,500); //運作bluger
+					$("#game").on("click",".bludger",function(){
+						// 搏格被點擊後消失並加分
+						$(this).stop().remove();
+						addScore(2,blueTeam);
+					})
+					$("#game").on("click","#GS",function(){
+						//GS被點擊後加分150
+						$(this).stop().remove();
+						addScore(150,blueTeam);
+						let temp=$('.time').text()
+						$('.getGSTime').html((20 - temp) + 's')
+						endGame();
+					})
+
+					}		//gameStart函式結尾
 				gameStart();
 			})	//startOnClick end
 	
