@@ -50,7 +50,7 @@
 		.GS{
 			user-select:none;
 			position: absolute;
-			height:75px;
+			height:50px;
 			width:75px;
 			left:calc(50% - 25px);
 			top:calc(60% - 25px);
@@ -66,7 +66,7 @@
 				transform:rotate(0);
 			}
 			60%{
-				height:110px;
+				height:75px;
 				width:110px
 			}
 			100%{
@@ -133,7 +133,7 @@
 		}
 		.GS2{
 			width:150px;
-			height:150px;
+			height:100px;
 			transform-origin: 80% 80%;
 			animation-name: circle2 ;
 			animation-duration: 8s;
@@ -145,22 +145,22 @@
 		@keyframes circle2 {
 			0%{
 				width:150px;
-				height:150px;
+				height:100px;
 				transform:rotate(0);
 			}
 			15%{
 				width:120px;
-				height:120px;
+				height:80px;
 			}
 			30%{
 				width:150px;
-				height:150px;
+				height:100px;
 				transform:rotate(360deg);
 
 			}
 			100%{
 				width:150px;
-				height:150px;
+				height:100px;
 				transform:rotate(360deg);
 				}
 		}
@@ -177,6 +177,18 @@
 			/* top0:50vh; */
 			text-align: center;
 			bottom: 10vh;
+		}
+		.sbutton{
+			display:inline-block;
+			text-align: center;
+			width:10vw;
+			height:6vw;
+			font-size: 4em;
+			background-color: green;
+			vertical-align:top ;
+			margin-top: 15vh;	
+			border-width:0.5vw;
+			border-style: double;
 		}
 	</style>
 </head>
@@ -205,8 +217,7 @@
 		</div>
 
 		<div  class=optionArea>
-			<div style='display:inline-block;text-align: center; width:10vw;height:6vw;font-size: 4em;background-color: gray;
-			vertical-align:top ;margin-top: 15vh;'>
+			<div id=start class=sbutton >
 				start
 			</div>
 			<div>
@@ -229,8 +240,8 @@
 
 		</div>
 	</div>
-	<input type="button" value=開始 id=start>
-	<input type="button" value=測試鈕 id=tryy >
+	<!-- <input type="button" value=開始 id=start>
+	<input type="button" value=測試鈕 id=tryy > -->
 	
 
 
@@ -252,7 +263,13 @@
 
 		$(function(){
 			alert( "「飄盪於虛空中的靈呀，球員們期待勝利的心將您招來。您是否願意幫助他們贏得比賽呢?\n 您需要在躲避對手搏格的同手想辦法找到出沒在場上的金探子，\n 當然，如果您技巧高超，也可試著擊落向您飛來的搏格球\n 如果您準備好了，就按下start開始吧~")
-			
+			let highStorage = window.localStorage.getItem("histior");
+			if(highStorage != null){
+            let histior = JSON.parse(highStorage);
+            $('.histior .Name').text(histior.name);
+            $('.histior .Score').text(histior.time);
+        	}
+
 			$("#tryy").on("click",function(event){
 
 
@@ -265,7 +282,7 @@
 
 // ---
 // ---
-
+			let doesGameRuning =0
 			$("#start").on("click",function(event){
 				console.log("#startOnClick");
 				mouseX=event.pageX;
@@ -291,12 +308,10 @@
 				}
 				let lockButton =function() {
 					//鎖定開始鈕
-					$("#start").attr("disabled",true)
+					$("#start").attr("disabled",true).css("background-color","gray")
+					
 					console.log("按鈕鎖定")
-					setTimeout(function(){
-					$("#start").attr("disabled",false)
-					console.log("按鈕解除")
-					},1000)
+
 				}
 				let creatPlayer = function () {
 					$("#game").append("<img src=player.png class=player></img>")
@@ -412,7 +427,7 @@
 							$('.end').html("LOSE").show()
 						}
 						setTimeout(() => {
-							if(parseInt($('.getGSTime').text())<20){
+							if(parseInt($('.getGSTime').text()) < parseInt( $('.histior .Score').text() )){
 								//若破記錄，20需重設
 								// console.log("hi");
 								let retVal = prompt("了不起，這場精采的比賽將被人們傳頌 \n 尊敬的巫師，可願在此留下您的大名  ", "your name here");
@@ -420,9 +435,12 @@
 							   $('.histior .Name').text(retVal);
 							   console.log($('.getGSTime').html())
 							   $('.histior .Score').text($('.getGSTime').html());
-	
+							   histior={name:retVal ,time: $('.histior .Score').text()}
+							   window.localStorage.setItem("histior", JSON.stringify(histior));
 							}
 						},300);
+						doesGameRing=0;
+						$("#start").css("background-color","green")
 					}
 					//初始化
 					lockButton();//完成後替換
@@ -459,7 +477,10 @@
 					})
 
 					}		//gameStart函式結尾
-				gameStart();
+				if(doesGameRuning==0){
+					gameStart();
+					doesGameRuning=1;
+				}else{}
 			})	//startOnClick end
 	
 
