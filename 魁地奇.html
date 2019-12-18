@@ -126,7 +126,7 @@
 		.optionArea{
 			position: relative;
 			display: inline-block;
-    		width: 20vh;
+    		width: 25vh;
     		height: 80vh;
     		vertical-align: top;
     		text-align: center;
@@ -177,9 +177,10 @@
 			position: absolute;
 			font-size: 2.5em;
 			border-style:solid;
+			left:10%;
 			/* top0:50vh; */
 			text-align: center;
-			bottom: 10vh;
+			bottom: 5vh;
 		}
 		.sbutton{
 			display:inline-block;
@@ -257,11 +258,13 @@
 			let rand = function(n) {
 				return Math.floor(Math.random()*n)
 			}
+			let xOffset=$("#game").offset().left;
+			let yOffset=$("#game").offset().top;
 			let mouseX=0;
 			let mouseY=0;
 			$("#game")[0].onmousemove = function (event){
-				mouseX=event.pageX;
-				mouseY=event.pageY;
+				mouseX=event.pageX - xOffset;
+				mouseY=event.pageY - yOffset;
 			}
 			let bludgerID=0
 
@@ -292,8 +295,10 @@
 			let doesGameRuning =0
 			$("#start").on("click",function(event){
 				console.log("#startOnClick");
-				mouseX=event.pageX;
-				mouseY=event.pageY;
+
+				mouseX=event.pageX - xOffset;
+				mouseY=event.pageY - yOffset; 
+				console.log(mouseX)
 				let redTeam=$('.red')
 				let blueTeam=$('.blue')
 			// gameStart用到的function
@@ -446,7 +451,7 @@
 							   window.localStorage.setItem("histior", JSON.stringify(histior));
 							}
 						},300);
-						doesGameRing=0;
+						doesGameRuning=0;
 						$("#start").css("background-color","green")
 					}
 					//初始化
