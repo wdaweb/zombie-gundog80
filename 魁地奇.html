@@ -303,6 +303,7 @@
 				let blueTeam=$('.blue')
 			// gameStart用到的function
 				let addScore=function ( a , b) {
+					console.log(a)
 					//分數操作用
 					b.filter('.change').html(`+` + `${a}`)
 					let temp=parseInt (b.filter('.score').html())
