@@ -131,6 +131,9 @@
     		vertical-align: top;
     		text-align: center;
 		}
+		.optionArea{
+			margin:auto
+		}
 		.GS2{
 			width:150px;
 			height:100px;
@@ -181,8 +184,8 @@
 		.sbutton{
 			display:inline-block;
 			text-align: center;
-			width:10vw;
-			height:6vw;
+			width:14vh;
+			height:9vh;
 			font-size: 4em;
 			background-color: green;
 			vertical-align:top ;
@@ -223,6 +226,7 @@
 			<div>
 				<img  class=GS2 src="./金探子.png" alt="">
 			</div>
+			<br>
 			<div class=getGSTime>
 				未補獲
 			</div>
@@ -266,9 +270,12 @@
 			let highStorage = window.localStorage.getItem("histior");
 			if(highStorage != null){
             let histior = JSON.parse(highStorage);
-            $('.histior .Name').text(histior.name);
-            $('.histior .Score').text(histior.time);
-        	}
+            	$('.histior .Name').text(histior.name);
+            	$('.histior .Score').text(histior.time);
+        	}else{
+				$('.histior .Name').text("aaa");
+            	$('.histior .Score').text("999");
+			}
 
 			$("#tryy").on("click",function(event){
 
